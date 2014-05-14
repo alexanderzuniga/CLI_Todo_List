@@ -12,8 +12,9 @@ $items = array();
 do {
     // Iterate through list items
     foreach ($items as $key => $item) {
+        $key2 = ++$key;
         // Display each item and a newline
-        echo "[{$key}] {$item}\n";
+        echo "[{$key2}] {$item}\n";
     }
 
     // Show the menu options
@@ -34,8 +35,10 @@ do {
         echo 'Enter item number to remove: ';
         // Get array key
         $key = trim(fgets(STDIN));
+
+        $key2 = $key -= 1;
         // Remove from array
-        unset($items[$key]);
+        unset($items[$key2]);
     }
 // Exit when input is (Q)uit
 } while ($input != 'Q');
