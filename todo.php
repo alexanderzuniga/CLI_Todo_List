@@ -29,7 +29,7 @@ do {
         echo 'Enter item: ';
         // Add entry to list array
         $items[] = trim(fgets(STDIN));
-    } elseif (($input == 'R') || ($input == 'r')) {
+    } elseif ($input == 'R') {
         // Remove which item?
         echo 'Enter item number to remove: ';
         // Get array key
@@ -38,7 +38,7 @@ do {
         unset($items[$key]);
     }
 // Exit when input is (Q)uit
-} while ($input != strtoupper('Q'));
+} while ($input != 'Q');
 
 // Say Goodbye!
 echo "Goodbye!\n";
