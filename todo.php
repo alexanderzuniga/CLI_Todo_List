@@ -17,7 +17,7 @@ do {
         elseif ($input == 'R') {
             echo 'Enter item number to remove: ';
             $key = trim(fgets(STDIN));
-            $key -= 1;
+            --$key;
             unset($items[$key]);
             $items = array_values($items);
         }
