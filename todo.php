@@ -20,27 +20,9 @@ do {
             $key -= 1;
             unset($items[$key]);
             $items = array_values($items);
-    }
+        }
 }   while ($input != 'Q');
 echo "Goodbye!\n";
-
-
 exit(0);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ?>
