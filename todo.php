@@ -1,6 +1,21 @@
 <?php
 
 $items = array();
+function list_items($list) {
+    $result = '';
+    foreach ($list as $key => $values) {
+        $result .= "[" . ($key + 1) . "] {$values}\n";
+    }
+    return $result;
+}
+
+////////////
+function get_input($upper = false)
+{
+    $result = trim(fgets(STDIN));
+    return $upper ? strtoupper($result) : $result; // if ? true : false (layout for if then statement)
+}
+///////////
 
 function sort_menu($items){
     echo "How would you like to sort?\n";
@@ -22,22 +37,15 @@ function sort_menu($items){
     }
     return $items;
 }
+///////////
 // When sort menu is opened, show the following options 
 // "(A)-Z{sort($items)}, (Z)-A{rsort($items), (O)rder entered {else}, (R)everse order entered {krsort}".
 
-function get_input($upper = false)
-{
-    $result = trim(fgets(STDIN));
-    return $upper ? strtoupper($result) : $result; // if ? true : false (layout for if then statement)
-}
 
 do {
-    foreach ($items as $key => $item) {
-        $key = ++$key;
-        echo "[{$key}] {$item}\n";
-    }
-        echo '(N)ew item, (R)emove item, (S)ort, (Q)uit : ';
-        $input = get_input(true); 
+    echo list_items($items);
+    echo '(N)ew item, (R)emove item, (S)ort, (Q)uit : ';
+    $input = get_input(true);     
 
     if ($input == 'N') {
         echo 'Enter item: ';
@@ -48,7 +56,7 @@ do {
             $key = get_input();
             --$key;
             unset($items[$key]);
-            //$items = array_values($items);
+            $items = array_values($items);
         }
         elseif ($input == 'S') {
             $items = sort_menu($items);
