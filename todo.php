@@ -16,7 +16,7 @@ function sort_menu($items){
         case 'O';
             ksort($items);
             break;
-        case 'Z';
+        case 'R';
             krsort($items);
             break;
     }
