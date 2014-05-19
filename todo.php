@@ -1,6 +1,7 @@
 <?php
 
 $items = array();
+
 function list_items($list) {
     $result = '';
     foreach ($list as $key => $values) {
@@ -23,17 +24,17 @@ function sort_menu($items){
     $input = get_input(true);
     switch ($input){
         case 'A':
-            asort($items);
-            break;
+        asort($items);
+        break;
         case 'Z';
-            arsort($items);
-            break;
+        arsort($items);
+        break;
         case 'O';
-            ksort($items);
-            break;
+        ksort($items);
+        break;
         case 'R';
-            krsort($items);
-            break;
+        krsort($items);
+        break;
     }
     return $items;
 }
@@ -43,24 +44,38 @@ function sort_menu($items){
 
 
 do {
-    echo list_items($items);
+    echo list_items($items);  
     echo '(N)ew item, (R)emove item, (S)ort, (Q)uit : ';
     $input = get_input(true);     
 
     if ($input == 'N') {
+        //Would you like your item to be at the (B)eginning or (E)nd of your list?
+
         echo 'Enter item: ';
-        $items[] = get_input();
-    } 
-        elseif ($input == 'R') {
-            echo 'Enter item number to remove: ';
-            $key = get_input();
-            --$key;
-            unset($items[$key]);
-            $items = array_values($items);
+        $item = trim(fgets(STDIN));
+        
+        echo 'Would you like your item to be at the (B)eginning or (E)nd of your list?';
+        $b_or_e = get_input(true);
+        
+        if ($b_or_e == 'B') 
+        {
+            array_unshift($items, $item);
+        }   elseif ($b_or_e == 'E') 
+        {
+            array_push($items, $item);
         }
-        elseif ($input == 'S') {
-            $items = sort_menu($items);
-        }
+    }
+    elseif ($input == 'R') {
+        echo 'Enter item number to remove: ';
+        $key = get_input();
+        --$key;
+        unset($items[$key]);
+        $items = array_values($items);
+    }
+    
+    elseif ($input == 'S') {
+        $items = sort_menu($items);
+    }
 }   while ($input != 'Q');
 echo "Goodbye!\n";
 exit(0);
