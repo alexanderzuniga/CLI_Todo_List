@@ -47,24 +47,21 @@ do {
     echo list_items($items);  
     echo '(N)ew item, (R)emove item, (S)ort, (Q)uit : ';
     $input = get_input(true);     
-
     if ($input == 'N') {
         //Would you like your item to be at the (B)eginning or (E)nd of your list?
-
         echo 'Enter item: ';
-        $item = trim(fgets(STDIN));
-        
-        echo 'Would you like your item to be at the (B)eginning or (E)nd of your list?';
-        $b_or_e = get_input(true);
-        
-        if ($b_or_e == 'B') 
-        {
-            array_unshift($items, $item);
-        }   elseif ($b_or_e == 'E') 
-        {
-            array_push($items, $item);
-        }
-    }
+        $item = get_input(true);
+            echo 'Would you like your item to be at the (B)eginning or (E)nd of your list?';
+            $b_or_e = get_input(true);
+
+            if ($b_or_e == 'B') 
+            {
+                array_unshift($items, $item);
+            }   elseif ($b_or_e == 'E') 
+            {
+                array_push($items, $item);
+            }
+        }   
     elseif ($input == 'R') {
         echo 'Enter item number to remove: ';
         $key = get_input();
