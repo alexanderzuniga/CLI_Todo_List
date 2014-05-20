@@ -1,7 +1,7 @@
 <?php
 
 $items = array();
-
+                         //for $file use 'list.txt'
 function import($File){
     $filename = $File;
     $handle = fopen($filename, "r");
@@ -33,16 +33,16 @@ function sort_menu($items){
     $input = get_input(true);
     switch ($input){
         case 'A':
-        asort($items);
+        asort($items, SORT_NATURAL | SORT_FLAG_CASE);
         break;
         case 'Z';
-        arsort($items);
+        arsort($items, SORT_NATURAL | SORT_FLAG_CASE);
         break;
         case 'O';
-        ksort($items);
+        ksort($items, , SORT_NATURAL | SORT_FLAG_CASE);
         break;
         case 'R';
-        krsort($items);
+        krsort($items, SORT_NATURAL | SORT_FLAG_CASE);
         break;
     }
     return $items;
