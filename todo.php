@@ -6,7 +6,9 @@ function import($File){
     $filename = $File;
     $handle = fopen($filename, "r");
     $contents = fread($handle, filesize($filename));
-    echo $contents;
+    $file_array = explode("\n", $contents);
+    return $file_array;
+    fclose($handle);
 }
 //////////
 function list_items($list) {
@@ -90,7 +92,7 @@ do {
         echo "Enter the name of your file.\n";
         $File = get_input();
         $extfile = import($File);
-        echo $extfile . PHP_EOL;
+        $items = array_merge($items, $extfile);
     }
 }   while ($input != 'Q');
 echo "Goodbye!\n";
