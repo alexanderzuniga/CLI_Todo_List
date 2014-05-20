@@ -42,16 +42,15 @@ function sort_menu($items){
 // When sort menu is opened, show the following options 
 // "(A)-Z{sort($items)}, (Z)-A{rsort($items), (O)rder entered {else}, (R)everse order entered {krsort}".
 
-
 do {
     echo list_items($items);  
     echo '(N)ew item, (R)emove item, (S)ort, (Q)uit : ';
-    $input = get_input(true);     
+    $input = get_input(true);
     if ($input == 'N') {
         //Would you like your item to be at the (B)eginning or (E)nd of your list?
         echo 'Enter item: ';
-        $item = get_input(true);
-            echo 'Would you like your item to be at the (B)eginning or (E)nd of your list?';
+        $item = get_input();
+            echo 'Would you like your item to be at the (B)eginning or (E)nd of your list? ';
             $b_or_e = get_input(true);
 
             if ($b_or_e == 'B') 
@@ -69,7 +68,14 @@ do {
         unset($items[$key]);
         $items = array_values($items);
     }
-    
+    elseif ($input == 'F') {
+        echo 'Power User Function.\n'; 
+        array_shift($items);
+    }
+    elseif ($input == 'L') {
+        echo "Power User function.\n";
+        array_pop($items);
+    }
     elseif ($input == 'S') {
         $items = sort_menu($items);
     }
