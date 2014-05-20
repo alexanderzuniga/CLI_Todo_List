@@ -2,6 +2,13 @@
 
 $items = array();
 
+function import($File){
+    $filename = $File;
+    $handle = fopen($filename, "r");
+    $contents = fread($handle, filesize($filename));
+    echo $contents;
+}
+//////////
 function list_items($list) {
     $result = '';
     foreach ($list as $key => $values) {
@@ -44,23 +51,23 @@ function sort_menu($items){
 
 do {
     echo list_items($items);  
-    echo '(N)ew item, (R)emove item, (S)ort, (Q)uit : ';
+    echo '(N)ew item, (R)emove item, (S)ort, (O)pen File, (Q)uit : ';
     $input = get_input(true);
     if ($input == 'N') {
         //Would you like your item to be at the (B)eginning or (E)nd of your list?
         echo 'Enter item: ';
         $item = get_input();
-            echo 'Would you like your item to be at the (B)eginning or (E)nd of your list? ';
-            $b_or_e = get_input(true);
+        echo 'Would you like your item to be at the (B)eginning or (E)nd of your list? ';
+        $b_or_e = get_input(true);
 
-            if ($b_or_e == 'B') 
-            {
-                array_unshift($items, $item);
-            }   elseif ($b_or_e == 'E') 
-            {
-                array_push($items, $item);
-            }
-        }   
+        if ($b_or_e == 'B') 
+        {
+            array_unshift($items, $item);
+        }   elseif ($b_or_e == 'E') 
+        {
+            array_push($items, $item);
+        }
+    }   
     elseif ($input == 'R') {
         echo 'Enter item number to remove: ';
         $key = get_input();
@@ -78,6 +85,12 @@ do {
     }
     elseif ($input == 'S') {
         $items = sort_menu($items);
+    }
+    elseif ($input == 'O') {
+        echo "Enter the name of your file.\n";
+        $File = get_input();
+        $extfile = import($File);
+        echo $extfile . PHP_EOL;
     }
 }   while ($input != 'Q');
 echo "Goodbye!\n";
