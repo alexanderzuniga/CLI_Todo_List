@@ -1,6 +1,7 @@
 <?php
 
 $items = array();
+                         
                          //for $file use 'list.txt'
 function import($File){
     $filename = $File;
@@ -10,15 +11,36 @@ function import($File){
     return $file_array;
     fclose($handle);
 }
+function save_file($filename, $data_to_save)
+{
+   $input = 'Y';
+
+   if (file_exists($filename)) 
+   {
+       echo "This will overwrite the file. Are you sure? Y or N? ";
+       $input = get_input(TRUE);
+           if ($input == 'Y') 
+           {
+               $handle = fopen($filename, 'w');
+               $contents = implode("\n", $data_to_save);
+               fwrite($handle, $contents);
+               fclose($handle);
+           } 
+   }
+   else 
+   {
+       echo "No changes were made.\n";
+   }
+}
 //////////
-function list_items($list) {
+function list_items($list) 
+{
     $result = '';
     foreach ($list as $key => $values) {
         $result .= "[" . ($key + 1) . "] {$values}\n";
     }
     return $result;
 }
-
 ////////////
 function get_input($upper = false)
 {
@@ -26,8 +48,8 @@ function get_input($upper = false)
     return $upper ? strtoupper($result) : $result; // if ? true : false (layout for if then statement)
 }
 ///////////
-
-function sort_menu($items){
+function sort_menu($items)
+{
     echo "How would you like to sort?\n";
     echo "(A)-Z, (Z)-A, (O)rder entered, (R)everse order entered : \n";
     $input = get_input(true);
@@ -39,7 +61,7 @@ function sort_menu($items){
         arsort($items, SORT_NATURAL | SORT_FLAG_CASE);
         break;
         case 'O';
-        ksort($items, , SORT_NATURAL | SORT_FLAG_CASE);
+        ksort($items, SORT_NATURAL | SORT_FLAG_CASE);
         break;
         case 'R';
         krsort($items, SORT_NATURAL | SORT_FLAG_CASE);
@@ -53,7 +75,7 @@ function sort_menu($items){
 
 do {
     echo list_items($items);  
-    echo '(N)ew item, (R)emove item, (S)ort, (O)pen File, (Q)uit : ';
+    echo '(N)ew item, (R)emove item, (S)ort, (O)pen File, s(A)ve, (Q)uit : ';
     $input = get_input(true);
     if ($input == 'N') {
         //Would you like your item to be at the (B)eginning or (E)nd of your list?
@@ -89,15 +111,19 @@ do {
         $items = sort_menu($items);
     }
     elseif ($input == 'O') {
-        echo "Enter the name of your file.\n";
+        echo "Enter the name of your file: ";
         $File = get_input();
-        $extfile = import($File);
-        $items = array_merge($items, $extfile);
+        $extfile_array = import($File);
+        $items = array_merge($items, $extfile_array);
     }
-}   while ($input != 'Q');
+    elseif ($input == 'A') {
+        echo "Enter file name: ";
+        $filename = get_input(true);
+        save_file($filename, $items);
+        echo "*** File was saved ***";     
+    }
+} while ($input != 'Q');
 echo "Goodbye!\n";
 exit(0);
-
-
 
 ?>
